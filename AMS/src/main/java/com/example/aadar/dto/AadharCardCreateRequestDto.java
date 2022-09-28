@@ -6,8 +6,6 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import com.example.aadar.enam.Gender;
 import com.example.aadar.enam.Status;
-
-
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;

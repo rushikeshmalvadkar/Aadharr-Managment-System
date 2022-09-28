@@ -2,10 +2,8 @@ package com.example.aadar.dto;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-
 import com.example.aadar.enam.Gender;
 import com.example.aadar.enam.Status;
-
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
