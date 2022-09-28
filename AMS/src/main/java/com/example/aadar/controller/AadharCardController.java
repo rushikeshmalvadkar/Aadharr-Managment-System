@@ -35,10 +35,6 @@ import lombok.extern.slf4j.Slf4j;
 @RequestMapping("/api/aadhar")
 @Slf4j
 public class AadharCardController {
-	
-	
-
-
 
 	@Autowired
 	private AadharCardService aadharCardService;
@@ -64,7 +60,6 @@ public class AadharCardController {
 		AadharCardResponseDto aadharCardResponseDto = this.aadharCardService.getAadharCardByAadharId(aadharId);
 
 		return new AadharCardResponseBody<>(aadharCardResponseDto, HttpStatus.OK.value());
-
 	}
 
 	@PutMapping("/cards")
