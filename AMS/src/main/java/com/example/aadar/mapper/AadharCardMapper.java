@@ -54,6 +54,7 @@ public class AadharCardMapper {
 		aadharCardResponseDto.setDateOfBirth(aadharCarEntity.getDateOfBirth());
 		aadharCardResponseDto.setCreatedOn(aadharCarEntity.getCreatedOn());
 		aadharCardResponseDto.setUpdatedOn(aadharCarEntity.getUpdatedOn());
+		if(aadharCarEntity.getAddress()!=null) {
 		aadharCardResponseDto.setHomeNo(aadharCarEntity.getAddress().getHomeNo());
 		aadharCardResponseDto.setSocitey(aadharCarEntity.getAddress().getSocitey());
 		aadharCardResponseDto.setCity(aadharCarEntity.getAddress().getCity());
@@ -63,6 +64,7 @@ public class AadharCardMapper {
 		aadharCardResponseDto.setPlace(aadharCarEntity.getAddress().getPlace());
 		aadharCardResponseDto.setAddressId(aadharCarEntity.getAddress().getId());
 		aadharCardResponseDto.setAddressCreatedOn(aadharCarEntity.getAddress().getCreatedOn());
+	}
 		return aadharCardResponseDto;
 	}
 

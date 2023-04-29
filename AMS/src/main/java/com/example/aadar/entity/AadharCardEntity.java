@@ -16,6 +16,8 @@ import javax.persistence.PreUpdate;
 import javax.persistence.Table;
 import com.example.aadar.enam.Gender;
 import com.example.aadar.enam.Status;
+
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -25,6 +27,7 @@ import lombok.Setter;
  * @author ABHISHEK MALVADKAR
  *
  */
+@EqualsAndHashCode
 @Getter
 @Setter
 @Entity

@@ -14,13 +14,12 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-
 import com.example.aadar.dto.AadharCardCreateRequestDto;
 import com.example.aadar.dto.AadharCardResponseDto;
 import com.example.aadar.dto.AadharCardUpdateRequestDto;
+import com.example.aadar.entity.AadharCardEntity;
 import com.example.aadar.response.AadharCardResponseBody;
 import com.example.aadar.service.AadharCardService;
-
 import lombok.extern.slf4j.Slf4j;
 
 /**
@@ -38,12 +37,12 @@ public class AadharCardController {
 	private AadharCardService aadharCardService;
 
 	@PostMapping("/cards")
-	public AadharCardResponseBody<AadharCardCreateRequestDto> createAadharCard(
+	public AadharCardResponseBody<String> createAadharCard(
 			@Valid @RequestBody AadharCardCreateRequestDto createAadharDto) {
 		log.debug("<<<<< createAadharCard()");
-		AadharCardCreateRequestDto createAadharDto1 = this.aadharCardService.createAadharCard(createAadharDto);
+		  String createAadharCard = this.aadharCardService.createAadharCard(createAadharDto);
 		log.debug("createAadharCard() >>>>>>");
-		return new AadharCardResponseBody<>(createAadharDto1, HttpStatus.CREATED.value());
+		return new AadharCardResponseBody<>(createAadharCard, HttpStatus.CREATED.value());
 
 	}
 
@@ -61,10 +60,10 @@ public class AadharCardController {
 	}
 
 	@PutMapping("/cards")
-	public AadharCardResponseBody<AadharCardUpdateRequestDto> updateAadharCard(
+	public AadharCardResponseBody<AadharCardResponseDto> updateAadharCard(
 			@Valid @RequestBody AadharCardUpdateRequestDto aadharCard) {
-		AadharCardUpdateRequestDto aadharCardUpdateRequestDto = this.aadharCardService.updateAadharCard(aadharCard);
-		return new AadharCardResponseBody<>(aadharCardUpdateRequestDto, HttpStatus.OK.value());
+		 AadharCardResponseDto updateAadharCard = this.aadharCardService.updateAadharCard(aadharCard);
+		return new AadharCardResponseBody<>(updateAadharCard, HttpStatus.OK.value());
 	}
 
 	@DeleteMapping("/cards/{id}")

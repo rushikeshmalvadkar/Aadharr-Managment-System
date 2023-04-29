@@ -13,30 +13,33 @@ import com.example.aadar.entity.AadharCardEntity;
 import com.example.aadar.excaption.AadharCardNotFoundExcaption;
 import com.example.aadar.mapper.AadharCardMapper;
 import com.example.aadar.repository.AadharCardRepositry;
+
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
 @Service
 @Slf4j
+@RequiredArgsConstructor
 public class AadharCardService {
       private static final  String MESSAGE ="aadhar is not availabele for this id  ";
-	@Autowired
-	private AadharCardMapper aadharCardMapper;
+	
+	private final AadharCardMapper aadharCardMapper;
 
-	@Autowired
-	private AadharCardRepositry aadharCardRepositry;
+	
+	private final AadharCardRepositry aadharCardRepositry;
 
 	@Transactional
-	public AadharCardCreateRequestDto createAadharCard(AadharCardCreateRequestDto createAadharDto) {
+	public String createAadharCard(AadharCardCreateRequestDto createAadharDto) {
 		log.info("in my service method ");
 		AadharCardEntity entity = this.aadharCardMapper.toEntity(createAadharDto);
-		this.aadharCardRepositry.save(entity);
-		return createAadharDto;
+		AadharCardEntity savedEntity = this.aadharCardRepositry.save(entity);
+		return savedEntity.getAadharId();
 
 	}
 
 	public List<AadharCardResponseDto> getAllAadharCard() {
-		List<AadharCardEntity> findAll = (List<AadharCardEntity>) this.aadharCardRepositry.findAll();
-		return this.aadharCardMapper.toDtoList(findAll);
+		List<AadharCardEntity> aadharCardList = this.aadharCardRepositry.findAll();
+		return this.aadharCardMapper.toDtoList(aadharCardList);
 	}
 
 	public AadharCardResponseDto getAadharCardByAadharId(String aadharId) {
@@ -50,10 +53,11 @@ public class AadharCardService {
 	}
 
 	@Transactional
-	public AadharCardUpdateRequestDto updateAadharCard(AadharCardUpdateRequestDto aadharCard) {
+	public AadharCardResponseDto updateAadharCard(AadharCardUpdateRequestDto aadharCard) {
 		AadharCardEntity aadharCardEntity = this.aadharCardMapper.toEntity(aadharCard);
-		this.aadharCardRepositry.save(aadharCardEntity);
-		return aadharCard;
+		AadharCardEntity savedAadhar = this.aadharCardRepositry.save(aadharCardEntity);
+		AadharCardResponseDto updatedAadharDto = this.aadharCardMapper.toDto(savedAadhar);
+		return updatedAadharDto;
 	}
 
 	@Transactional
@@ -62,7 +66,7 @@ public class AadharCardService {
 		if (optAadhar.isPresent()) {
 			AadharCardEntity aadharCardEntity = optAadhar.get();
 			aadharCardEntity.setStatus(Status.DACTIVE);
-			this.aadharCardRepositry.save(aadharCardEntity);
+			AadharCardEntity save = this.aadharCardRepositry.save(aadharCardEntity);
 			return true;
 		} else {
 			throw new AadharCardNotFoundExcaption( AadharCardService.MESSAGE+ aadharId);
